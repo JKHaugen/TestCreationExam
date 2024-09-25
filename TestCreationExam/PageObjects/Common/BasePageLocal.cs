@@ -220,5 +220,22 @@ namespace TestCreationExam.PageObjects.Common
                 throw new Exception("Something went wrong while sleeping.");
             }
         }
+
+        /// <summary>
+        /// Deletes the contents of a text field by the given count starting from the beginning. 
+        /// </summary>
+        /// <param name="locator">Element location to have text deleted from.</param>
+        /// <param name="deleteCount">Amount of characters to delete starting from the beginning of the text, limited from 1 to 100 characters.</param>
+        public virtual void DeleteFromBeginningOfTextField(By locator, int deleteCount)
+        {
+            deleteCount = Math.Clamp(deleteCount, 1, 100);
+            string homeThenDelete = Keys.Home;
+            for (int i = 0; i < deleteCount; i++)
+            {
+                homeThenDelete = $"{homeThenDelete}{Keys.Delete}";
+            }
+
+            FindElement(ExpectedConditions.ElementIsVisible(locator)).SendKeys(homeThenDelete);
+        }
     }
 }
